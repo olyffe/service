@@ -103,6 +103,27 @@ router.post('/write_config',function (req, res, next) {
     });
 });
 
+//登陆校验
+router.post('/login', function (req, res, next) {
+    //用户名，密码，验证码
+    var username = req.body.username;
+    var password = req.body.password;
+    //TODO 对密码验证码进行校验
+    //XSS攻击 判空
+    if(username === 'admin' && password === '123456'){
+        req.session.user = {
+            username: username
+        };
+        return res.send({
+            status:1
+        });
+    }
+    return res.send({
+        status:1,
+        info:'登陆失败'
+    });
+
+});
 
 //生成guid
 function guidGenerate() {

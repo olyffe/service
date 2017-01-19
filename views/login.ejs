@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="header">
+    <div class="header_title"><a href="/">后台管理系统</a></div>
+</div>
+<div class="panel">
+    <div class="login_input">
+        <span>用户名</span>
+        <input id="username" placeholder="请输入用户名"/>
+    </div>
+    <div class="login_input">
+        <span>密码</span>
+        <input id="password" type="password" placeholder="请输入密码"/>
+    </div>
+    <div id="btn">
+        登录
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript">
+    $('#btn').on('click', function(){
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var obj = {
+            username: username,
+            password: password
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/data/login',
+            data: obj,
+            success: function(data){
+                if(data.status){
+                    window.location.href = '/';
+                }else{
+                    alert('登录失败');
+                }
+            },
+            error: function(){
+                alert('登录失败');
+            },
+            dataType: 'json'
+        });
+    });
+</script>
+</body>
+</html>
