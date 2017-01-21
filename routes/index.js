@@ -11,7 +11,16 @@ router.get('/', function(req, res, next) {
     }
   return res.render('index',{});
 });
+//登陆界面跳转
+router.get('/login', function (req, res, next) {
+    return res.render('login', {});
+});
+//
+router.get('/tuijian', function (req, res, next) {
+    return res.render('tuijian', {});
+});
 
+//由登陆成功页面跳转各模块页面
 router.get('/edit', function (req, res, next) {
     if(!req.session.user){
         return res.render('login',{})
@@ -40,6 +49,24 @@ router.get('/edit', function (req, res, next) {
             break;
         }
         //TODO
+        fs.readFile(PATH + type + '.json', function (err, data) {
+            if(err){
+                return res.send({
+                    status:0,
+                    info: 'fail......'
+                });
+            }
+            var obj = JSON.parse(data.toString());
+            return res.render('edit', {
+                data:obj
+            });
+        });
+    }else{
+        return res.send({
+            status:0,
+            info:'参数错误'
+        });
     }
 })
+
 module.exports = router;

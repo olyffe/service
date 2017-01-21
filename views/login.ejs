@@ -47,6 +47,11 @@
             dataType: 'json'
         });
     });
+    $(window).keypress(function (e) {
+        if(e.keyCode == 13 || e.keyCode == 27){
+            $('#btn').trigger('click');
+        }
+    });
 </script>
 </body>
 </html>

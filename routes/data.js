@@ -33,6 +33,12 @@ router.get('/read', function(req, res, next) {
 });
 //数据存储模块
 router.post('/write', function (req, res, next) {
+    if(!req.session.user){
+        return res.send({
+            status:0,
+            info:'未鉴权认证'
+        });
+    }
     var type = req.param('type') || '';
     var title = req.param('title') || '';
     var url = req.param('url') || '';
@@ -80,6 +86,12 @@ router.post('/write', function (req, res, next) {
 });
 //阅读模块配置接口
 router.post('/write_config',function (req, res, next) {
+    if(!req.session.user){
+        return res.send({
+            status:0,
+            info:'未鉴权认证'
+        });
+    }
     //TODO:后期进行提交数据的验证
     //防xss攻击 xss
     // npm install xss
@@ -119,7 +131,7 @@ router.post('/login', function (req, res, next) {
         });
     }
     return res.send({
-        status:1,
+        status:0,
         info:'登陆失败'
     });
 
